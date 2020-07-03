@@ -1,0 +1,18 @@
+.menu-sider {
+  background-color: #fff;
+
+  .ant-layout-sider {
+    background-color: #fff;
+  }
+
+  &-logo {
+    h1 {
+      display: inline;
+      color: #641f44;
+    }
+
+    &-colapsed {
+      text-align: center;
+    }
+  }
+}
