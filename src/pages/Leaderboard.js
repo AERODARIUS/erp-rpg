@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import mocker from 'mocker-data-generator';
 import { AvatarGenerator } from 'random-avatar-generator';
-import {
-  PageHeader, Table, Tag, Avatar,
-} from 'antd';
-
-const { Column } = Table;
+import { PageHeader } from 'antd';
+import GenericTable from '../components/util/GenericTable';
 
 const generator = new AvatarGenerator();
 
@@ -86,17 +83,7 @@ const user = {
   },
 };
 
-const compareString = (a, b) => {
-  if (a.name === b.name) {
-    return 0;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-
-  return -1;
-};
-
+// TODO: change nickname column with country, it could be more sueful
 const Leaderboard = () => {
   const [state, setState] = useState({
     users: [],
@@ -134,108 +121,50 @@ const Leaderboard = () => {
         title="Leaderboard"
         subTitle="~2.5K active talents in the system"
       />
-      <Table
-        dataSource={state.users}
-        className="animate__animated animate__zoomIn"
-        pagination={{ position: ['bottomRight', 'topRight'] }}
-      >
-        <Column
-          title=""
-          dataIndex="avatar"
-          key="avatar"
-          render={(url) => (
-            <Avatar src={url} />)}
-        />
-        <Column
-          title="Nickname"
-          dataIndex="nickname"
-          key="nickname"
-          render={(text) => (
-            <a href="/">{text}</a>
-          )}
-          sorter={{
-            compare: compareString,
-            multiple: 1,
-          }}
-          sortDirections={['descend', 'ascend']}
-        />
-        <Column
-          title="Name"
-          dataIndex="name"
-          key="name"
-          sorter={{
-            compare: compareString,
-            multiple: 2,
-          }}
-          sortDirections={['descend', 'ascend']}
-        />
-        <Column
-          title="Email"
-          dataIndex="email"
-          key="email"
-          sorter={{
-            compare: compareString,
-            multiple: 3,
-          }}
-          sortDirections={['descend', 'ascend']}
-        />
-        <Column
-          title="Job"
-          dataIndex="job"
-          key="job"
-          sorter={{
-            compare: compareString,
-            multiple: 4,
-          }}
-          sortDirections={['descend', 'ascend']}
-        />
-        <Column
-          title="Years in the company"
-          dataIndex="companyYears"
-          key="companyYears"
-          align="center"
-          sorter={{
-            compare: (a, b) => a.companyYears - b.companyYears,
-            multiple: 5,
-          }}
-          sortDirections={['descend', 'ascend']}
-        />
-        <Column
-          title="Skills"
-          dataIndex="skills"
-          key="skills"
-          render={(skills) => {
-            if (!skills) {
-              return null;
-            }
-
-            const skillsSet = new Set();
-
-            return (
-              <>
-                {skills.map((skill) => {
-                  if (skillsSet.has(skill)) {
-                    return null;
-                  }
-
-                  skillsSet.add(skill);
-
-                  return (
-                    <Tag color="blue" key={skill}>
-                      {skill}
-                    </Tag>
-                  );
-                })}
-              </>
-            );
-          }}
-          sorter={{
-            compare: (a, b) => a.skills.length - b.skills.length,
-            multiple: 5,
-          }}
-          sortDirections={['descend', 'ascend']}
-        />
-      </Table>
+      <GenericTable
+        columns={[
+          {
+            title: '',
+            key: 'avatar',
+            type: 'avatar',
+          },
+          {
+            title: 'Nickname',
+            key: 'nickname',
+            type: 'link',
+          },
+          {
+            title: 'Name',
+            key: 'name',
+            type: 'text',
+          },
+          {
+            title: 'Email',
+            key: 'email',
+            type: 'text',
+          },
+          {
+            title: 'Job',
+            key: 'job',
+            type: 'text',
+          },
+          {
+            title: 'Years in the company',
+            key: 'companyYears',
+            type: 'number',
+            otherProps: {
+              align: 'center',
+            },
+          },
+          {
+            title: 'Skills',
+            key: 'skills',
+            type: 'tags',
+            tags: skillvalues,
+          },
+        ]}
+        rows={state.users}
+      />
     </>
   );
 };

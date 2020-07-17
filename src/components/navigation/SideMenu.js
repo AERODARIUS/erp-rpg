@@ -23,7 +23,6 @@ function SideMenu() {
   };
 
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <div className="menu-sider">

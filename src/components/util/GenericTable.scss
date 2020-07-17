@@ -1,0 +1,16 @@
+.filter-dropdown {
+  padding: 0.5rem;
+
+  .ant-space {
+    display: flex;
+    margin-top: 0.5rem;
+
+    &-item {
+      flex: 1;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
