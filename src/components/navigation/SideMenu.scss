@@ -6,13 +6,23 @@
   }
 
   &-logo {
+    img {
+      filter: grayscale(100%);
+    }
+
     h1 {
       display: inline;
-      color: #641f44;
+      background: #333;
+      color: #fff;
+      padding: 0.5rem 0.8rem;
     }
 
     &-colapsed {
       text-align: center;
+
+      img {
+        filter: grayscale(100%);
+      }
     }
   }
 }

@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import { Layout } from 'antd';
 import 'antd/dist/antd.css';
+
 import './App.scss';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import SideMenu from './components/navigation/SideMenu';
 import {
   Dashboard, Login, Projects, Leaderboard,
 } from './pages';
+import { useMockData } from './hooks/data';
+import { init } from './redux/actions';
 
 const { Content, Footer } = Layout;
 
 function App() {
+  const data = useMockData();
+  const dispatch = useDispatch();
+  dispatch(init(data));
   const hasLoginCookie = document.cookie === 'mockupLogin';
   const [state, setState] = useState({ loggedIn: hasLoginCookie, routes: [] });
 

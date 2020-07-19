@@ -24,22 +24,27 @@ const SearchReslult = ({ text, searchWords }) => {
   );
 };
 
+const textSorter = ({ column, order }) => ({
+  compare: (a, b) => {
+    if (a[column] === b[column]) {
+      return 0;
+    }
+    if (a[column] > b[column]) {
+      return 1;
+    }
+
+    return -1;
+  },
+  multiple: order,
+});
+
 const getColumnSorter = ({ type, column, order }) => {
   switch (type) {
     case 'text':
-      return {
-        compare: (a, b) => {
-          if (a[column] === b[column]) {
-            return 0;
-          }
-          if (a[column] > b[column]) {
-            return 1;
-          }
+      return textSorter({ type, column });
 
-          return -1;
-        },
-        multiple: order,
-      };
+    case 'link':
+      return textSorter({ type, column });
 
     case 'number':
       return {
@@ -49,7 +54,12 @@ const getColumnSorter = ({ type, column, order }) => {
 
     case 'tags':
       return {
-        compare: (a, b) => a[column].length - b[column].length,
+        compare: (a, b) => {
+          const setA = new Set(a[column]);
+          const setB = new Set(b[column]);
+
+          return setA.size - setB.size;
+        },
         multiple: order,
       };
 

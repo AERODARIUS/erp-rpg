@@ -1,75 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import mocker from 'mocker-data-generator';
-import { AvatarGenerator } from 'random-avatar-generator';
+import React from 'react';
 import { PageHeader } from 'antd';
+import { useSelector } from 'react-redux';
+
 import GenericTable from '../components/util/GenericTable';
-
-const technologiesList = [
-  'React', 'Angular', 'Vue', 'Salesforce', 'Apex', 'Java', 'SQL',
-  'Dart', 'Swift', 'Node.js', 'Docker', 'Flutter', 'Apex',
-  'Mongo DB', 'Lightning', 'GraphQL', 'Kafka', 'Kubernetes',
-];
-
-const technology = {
-  name: {
-    values: technologiesList,
-    unique: true,
-  },
-};
-
-const project = {
-  key: {
-    chance: 'integer',
-    unique: true,
-  },
-  name: {
-    faker: 'commerce.productName',
-    unique: true,
-  },
-  customer: {
-    faker: 'company.companyName',
-  },
-  location: {
-    faker: 'address.country',
-  },
-  started: {
-    faker: 'date.between("2015-01-01", "2015-01-05")',
-  },
-  finished: {
-    faker: 'date.future',
-  },
-  team: {
-    hasMany: 'technology',
-    min: 2,
-    max: 5,
-    get: 'name',
-  },
-  technologies: {
-    hasMany: 'technology',
-    min: 2,
-    max: 5,
-    get: 'name',
-  },
-};
+import { technologiesList } from '../hooks/data';
+import { getProjects, getUsers } from '../redux/selectors';
 
 const Projects = () => {
-  const [state, setState] = useState({
-    projects: [],
-  });
-
-  useEffect(() => {
-    mocker()
-      .schema('technology', technology, technologiesList.length)
-      .schema('project', project, 328)
-      .build()
-      .then(
-        (data) => {
-          console.log(data.project);
-          setState({ projects: data.project });
-        },
-        (err) => console.error(err),
-      );
-  }, []);
+  const users = useSelector(getUsers);
+  const projects = useSelector(getProjects);
+  const usersList = users.map(({ name }) => name);
 
   return (
     <>
@@ -96,27 +36,19 @@ const Projects = () => {
             type: 'text',
           },
           {
-            title: 'Started',
-            key: 'started',
-            type: 'text',
-          },
-          {
-            title: 'Finished',
-            key: 'finished',
-            type: 'text',
-          },
-          {
             title: 'Team',
             key: 'team',
             type: 'tags',
+            tags: usersList,
           },
           {
             title: 'Technologies',
             key: 'technologies',
             type: 'tags',
+            tags: technologiesList,
           },
         ]}
-        rows={state.projects}
+        rows={projects}
       />
     </>
   );

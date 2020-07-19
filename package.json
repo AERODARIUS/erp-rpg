@@ -9,13 +9,13 @@
     "@testing-library/user-event": "^7.2.1",
     "animate.css": "^4.1.0",
     "antd": "^4.3.3",
-    "random-avatar-generator": "^2.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-highlight-words": "^0.16.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
