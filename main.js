@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
 function createWindow() {
+  const iconPath = path.join(__dirname, 'public/logo64.png');
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
@@ -9,6 +12,8 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
+
+  win.setIcon(iconPath);
 
   win.removeMenu();
 
