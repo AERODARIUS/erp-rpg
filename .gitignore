@@ -10,6 +10,7 @@
 
 # production
 /build
+/erp-rpg-win32-x64
 
 # misc
 .DS_Store
