@@ -13,7 +13,8 @@ function createWindow() {
   win.removeMenu();
 
   // load the index.html of the app.
-  win.loadURL('http://localhost:3000/');
+  // TODO: Move to ENV file and setup local and firebase URLs
+  win.loadURL('https://erp-rpg.web.app/');
 }
 
 app.whenReady().then(createWindow);
