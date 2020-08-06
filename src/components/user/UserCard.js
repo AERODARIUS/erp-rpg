@@ -3,7 +3,7 @@ import {
   Tag,
   Descriptions,
 } from 'antd';
-import SwappableCard from '../util/SwappableCard';
+import { SwappableCard } from '../util';
 import './UserCard.scss';
 
 const UserPhoto = () => (

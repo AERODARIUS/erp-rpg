@@ -12,6 +12,7 @@
     "antd": "^4.3.3",
     "electron": "^9.1.1",
     "mocker-data-generator": "^2.8.0",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-highlight-words": "^0.16.0",

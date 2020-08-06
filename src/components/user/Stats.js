@@ -4,7 +4,7 @@ import {
   ArrowUpOutlined,
   TeamOutlined,
 } from '@ant-design/icons';
-import SwappableCard from '../util/SwappableCard';
+import { SwappableCard } from '../util';
 import './Stats.scss';
 
 const { Item } = Descriptions;

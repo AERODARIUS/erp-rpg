@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 import SideMenu from './components/navigation/SideMenu';
 import {
-  Dashboard, Login, Projects, Leaderboard,
+  Dashboard, Login, Projects, Leaderboard, ClientFeedback,
 } from './pages';
 import { useMockData } from './hooks/data';
 import { init } from './redux/actions';
@@ -55,6 +55,11 @@ function App() {
           <Route exact path="/">
             <BaseTemplate>
               <Dashboard loggedIn={state.loggedIn} />
+            </BaseTemplate>
+          </Route>
+          <Route exact path="/feedback">
+            <BaseTemplate>
+              <ClientFeedback />
             </BaseTemplate>
           </Route>
           <Route exact path="/leaderboard">

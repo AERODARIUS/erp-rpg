@@ -5,9 +5,11 @@
     background-color: #fff;
   }
 
-  &-logo {
+  &-logo,
+  &-logo-colapsed {
     img {
-      filter: grayscale(100%);
+      width: 100%;
+      padding: 10px;
     }
 
     h1 {
@@ -15,14 +17,6 @@
       background: #333;
       color: #fff;
       padding: 0.5rem 0.8rem;
-    }
-
-    &-colapsed {
-      text-align: center;
-
-      img {
-        filter: grayscale(100%);
-      }
     }
   }
 }

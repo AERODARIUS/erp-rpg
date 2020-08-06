@@ -2,14 +2,21 @@ import React from 'react';
 import { PageHeader } from 'antd';
 import { useSelector } from 'react-redux';
 
-import GenericTable from '../components/util/GenericTable';
 import { technologiesList } from '../hooks/data';
 import { getProjects, getUsers } from '../redux/selectors';
+import { GenericTable } from '../components/util';
 
 const Projects = () => {
   const users = useSelector(getUsers);
   const projects = useSelector(getProjects);
   const usersList = users.map(({ name }) => name);
+  const currencyrender = (render) => (
+    (props) => {
+      const amount = render(props);
+      const formattedAmount = new Intl.NumberFormat().format(amount);
+      return `$${formattedAmount}`;
+    }
+  );
 
   return (
     <>
@@ -26,14 +33,16 @@ const Projects = () => {
             type: 'link',
           },
           {
-            title: 'Customer',
-            key: 'customer',
-            type: 'text',
+            title: 'Budget',
+            key: 'budget',
+            type: 'number',
+            customRender: currencyrender,
           },
           {
-            title: 'Location',
-            key: 'location',
-            type: 'text',
+            title: 'Revenue',
+            key: 'revenue',
+            type: 'number',
+            customRender: currencyrender,
           },
           {
             title: 'Team',
@@ -48,6 +57,38 @@ const Projects = () => {
             tags: technologiesList,
           },
         ]}
+        previewInfo={
+          {
+            title: 'name',
+            details: [
+              {
+                title: 'Name',
+                key: 'name',
+                type: 'text',
+              },
+              {
+                title: 'Customer',
+                key: 'customer',
+                type: 'text',
+              },
+              {
+                title: 'Location',
+                key: 'location',
+                type: 'text',
+              },
+              {
+                title: 'Released',
+                key: 'started',
+                type: 'date',
+              },
+              {
+                title: 'Deadline',
+                key: 'finished',
+                type: 'date',
+              },
+            ],
+          }
+        }
         rows={projects}
       />
     </>

@@ -27,7 +27,7 @@ const Login = ({ onLogin }) => {
     if (state.submitCallback) {
       state.submitCallback();
     }
-  }, [state.submitCallback]);
+  }, [state]);
 
   return (
     <Spin size="large" spinning={state.spinning}>

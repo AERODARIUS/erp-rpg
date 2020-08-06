@@ -4,7 +4,9 @@ import {
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+
 import TagsFilter from './TagsFilter';
+import DetailsPopup from './DetailsPopup';
 import './GenericTable.scss';
 
 const SearchReslult = ({ text, searchWords }) => {
@@ -68,7 +70,8 @@ const getColumnSorter = ({ type, column, order }) => {
   }
 };
 
-const GenericTable = ({ columns, rows }) => {
+const GenericTable = ({ columns, previewInfo, rows }) => {
+  const { title, details } = previewInfo || {};
   const [state, setState] = useState({
     filters: new Map(),
   });
@@ -81,15 +84,42 @@ const GenericTable = ({ columns, rows }) => {
       case 'avatar':
         return (url) => <Avatar src={url} />;
 
+      case 'currency':
+        return (currency) => `$${currency}`;
+
       case 'link':
-        return (text) => (
-          <a href="/">
-            <SearchReslult
-              text={text}
-              searchWords={searchText}
-            />
-          </a>
-        );
+        return (text, row) => {
+          if (!previewInfo) {
+            return (
+              <a href="/">
+                <SearchReslult
+                  text={text}
+                  searchWords={searchText}
+                />
+              </a>
+            );
+          }
+
+          return (
+            <DetailsPopup
+              title={row[title]}
+              details={details.map(({ key, title: label, type: dataType }) => (
+                {
+                  label,
+                  data: row[key],
+                  dataType,
+                }
+              ))}
+            >
+              <a href="/">
+                <SearchReslult
+                  text={text}
+                  searchWords={searchText}
+                />
+              </a>
+            </DetailsPopup>
+          );
+        };
 
       case 'text':
         return (text) => (
@@ -193,14 +223,12 @@ const GenericTable = ({ columns, rows }) => {
         <InputNumber
           ref={inputElMin}
           min={0}
-          max={100}
           defaultValue=""
           style={{ marginRight: '0.5rem' }}
         />
         <InputNumber
           ref={inputElMax}
           min={0}
-          max={100}
           defaultValue=""
         />
         <Space>
@@ -233,7 +261,7 @@ const GenericTable = ({ columns, rows }) => {
   };
 
   const parseColumn = ({
-    title, key, type, otherProps, tags,
+    title, key, type, otherProps, tags, customRender,
   }, index) => {
     const column = {
       ...otherProps,
@@ -243,7 +271,8 @@ const GenericTable = ({ columns, rows }) => {
     };
 
     if (type) {
-      column.render = getColumnRender(key, type);
+      const render = getColumnRender(key, type);
+      column.render = customRender ? customRender(render) : render;
     }
 
     if (type === 'text' || type === 'link') {

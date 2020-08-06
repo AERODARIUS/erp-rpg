@@ -26,7 +26,7 @@ const SwappableCard = ({
           <EditOutlined />
         </a>
       ) : null}
-      className={className}
+      className={`swappable-card ${className}`}
     >
       <CardSide
         content={state.showBack && !!back ? back : front}

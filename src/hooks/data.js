@@ -42,6 +42,12 @@ const user = {
     faker: 'internet.userName',
     unique: true,
   },
+  salary: {
+    faker: 'finance.amount',
+  },
+  performance: {
+    faker: 'random.number({"min": 0, "max": 100})',
+  },
   email: {
     unique: true,
     faker: 'internet.email',
@@ -101,6 +107,12 @@ const project = {
   },
   location: {
     faker: 'address.country',
+  },
+  budget: {
+    faker: 'random.number({"min": 1000, "max": 100000})',
+  },
+  revenue: {
+    faker: 'random.number({"min": 1000, "max": 100000})',
   },
   started: {
     faker: 'date.between("2013-01-01", "2016-01-01")',

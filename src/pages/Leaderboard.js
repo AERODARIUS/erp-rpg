@@ -3,7 +3,7 @@ import { PageHeader } from 'antd';
 import { useSelector } from 'react-redux';
 
 import { skillsList } from '../hooks/data';
-import GenericTable from '../components/util/GenericTable';
+import { GenericTable } from '../components/util';
 import { getUsers } from '../redux/selectors';
 
 const Leaderboard = () => {
@@ -24,19 +24,22 @@ const Leaderboard = () => {
             type: 'avatar',
           },
           {
-            title: 'Nickname',
-            key: 'nickname',
+            title: 'Name',
+            key: 'name',
             type: 'link',
           },
           {
-            title: 'Name',
-            key: 'name',
-            type: 'text',
+            title: 'Average Performance',
+            key: 'performance',
+            type: 'number',
+            customRender: (render) => (
+              (props) => `${render(props)}%`
+            ),
           },
           {
-            title: 'Email',
-            key: 'email',
-            type: 'text',
+            title: 'Salary',
+            key: 'salary',
+            type: 'currency',
           },
           {
             title: 'Job',

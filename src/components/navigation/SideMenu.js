@@ -6,10 +6,13 @@ import {
   FileSearchOutlined,
   TeamOutlined,
   LogoutOutlined,
+  CommentOutlined,
+  ProfileOutlined,
 } from '@ant-design/icons';
 import './SideMenu.scss';
 
 const { Sider } = Layout;
+const { SubMenu } = Menu;
 
 function SideMenu() {
   const [state, setState] = useState({
@@ -28,8 +31,7 @@ function SideMenu() {
     <div className="menu-sider">
       <Sider collapsible collapsed={state.collapsed} onCollapse={onCollapse}>
         <div className={`menu-sider-logo${state.collapsed ? '-colapsed' : ''}`}>
-          <img src="/logo64.png" alt="ERP-RPG" />
-          {!state.collapsed && <h1>ERP-RPG</h1>}
+          <img src={state.collapsed ? '/alti-logo.jfif' : '/alti-logo-expanded.png'} alt="ERP-RPG" />
         </div>
         <Menu
           defaultSelectedKeys={['/']}
@@ -37,13 +39,25 @@ function SideMenu() {
           mode="inline"
           inlineCollapsed={state.collapsed}
         >
-          <Menu.Item
-            key="/"
+          <SubMenu
             icon={<UserOutlined />}
-            onClick={() => history.push('/')}
+            title="Me"
           >
-            Me
-          </Menu.Item>
+            <Menu.Item
+              key="/"
+              icon={<ProfileOutlined />}
+              onClick={() => history.push('/')}
+            >
+              Profile
+            </Menu.Item>
+            <Menu.Item
+              key="/feedback"
+              icon={<CommentOutlined />}
+              onClick={() => history.push('/feedback')}
+            >
+              Feedback
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item
             key="/leaderboard"
             icon={<FileSearchOutlined />}

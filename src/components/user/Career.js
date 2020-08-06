@@ -1,6 +1,6 @@
 import React from 'react';
 import { Steps, Popover } from 'antd';
-import SwappableCard from '../util/SwappableCard';
+import { SwappableCard } from '../util';
 import './Career.scss';
 
 const { Step } = Steps;
@@ -41,7 +41,7 @@ const JobPositions = () => (
 
 const Projects = () => (
   <Steps
-    current={4}
+    current={7}
     progressDot={customDot}
     direction="vertical"
     className="animate__animated animate__flipInY"
@@ -49,8 +49,11 @@ const Projects = () => (
     <Step title="Acme Corporation" description="15/06/2015 - 23/11/2015" />
     <Step title="Globex Corporation" description="27/11/2016 - 28/07/2016" />
     <Step title="Initech" description="29/07/2016 - 24/02/2017" />
+    <Step title="Soylent Corp" description="17/09/2016 - 28/11/2018" />
     <Step title="Umbrella Corporation" description="14/03/2017 - 12/01/2019 " />
     <Step title="SalesWeak" description="27/02/2019 - Present" />
+    <Step title="Vehement Capital 1" description="13/01/2020 - Present" status="finish" />
+    <Step title="Vehement Capital 2" description="13/02/2020 - Present" status="finish" />
   </Steps>
 );
 
